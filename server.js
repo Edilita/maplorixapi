@@ -16,14 +16,14 @@ import applicationsRouter from "./routes/applications.js";
 import authRouter from "./routes/auth.js";
 import adminRouter from "./routes/admin.js";
 
+// Get current directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Load environment variables
 const nodeEnv = process.env.NODE_ENV || 'development';
 dotenv.config({ path: path.resolve(__dirname, `.env.${nodeEnv}`) });
 dotenv.config(); // Fallback to .env if specific file doesn't exist or for shared vars
-
-// Get current directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Initialize Express app
 const app = express();
