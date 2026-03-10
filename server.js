@@ -17,7 +17,9 @@ import authRouter from "./routes/auth.js";
 import adminRouter from "./routes/admin.js";
 
 // Load environment variables
-dotenv.config();
+const nodeEnv = process.env.NODE_ENV || 'development';
+dotenv.config({ path: path.resolve(__dirname, `.env.${nodeEnv}`) });
+dotenv.config(); // Fallback to .env if specific file doesn't exist or for shared vars
 
 // Get current directory
 const __filename = fileURLToPath(import.meta.url);
@@ -34,16 +36,23 @@ app.use(
 );
 
 // CORS configuration
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:3000",
+  "http://localhost:5173",
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || [
-      "http://localhost:3000",
-      "http://localhost:4001",
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "http://localhost:5175",
-      "http://localhost:5176",
-    ],
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+        return callback(null, true);
+      } else {
+        return callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
