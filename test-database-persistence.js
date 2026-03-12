@@ -1,9 +1,16 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import axios from 'axios';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get directory name
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Load environment variables
-dotenv.config();
+const nodeEnv = process.env.NODE_ENV || 'production';
+dotenv.config({ path: path.resolve(__dirname, `.env.${nodeEnv}`) });
 
 // Import models for direct database testing
 import Job from './models/Job.js';
