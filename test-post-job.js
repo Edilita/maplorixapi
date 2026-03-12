@@ -10,7 +10,7 @@ const testPostJobAPI = async () => {
 
     // Step 1: Login to get token
     console.log("\n📝 Step 1: Login to get token...");
-    const loginResponse = await fetch("http://localhost:4000/api/auth/login", {
+    const loginResponse = await fetch("https://maplorix.ae/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -58,7 +58,7 @@ const testPostJobAPI = async () => {
 
     console.log("Job Data:", JSON.stringify(jobData, null, 2));
 
-    const jobResponse = await fetch("http://localhost:4000/api/jobs", {
+    const jobResponse = await fetch("https://maplorix.ae/api/jobs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -94,7 +94,7 @@ const testPostJobAPI = async () => {
           "Bachelor degree and 2+ years experience in software development.",
       };
 
-      const minimalResponse = await fetch("http://localhost:4000/api/jobs", {
+      const minimalResponse = await fetch("https://maplorix.ae/api/jobs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

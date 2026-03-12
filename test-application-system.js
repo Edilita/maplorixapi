@@ -9,7 +9,7 @@ const testApplicationSystem = async () => {
 
     // Step 1: Test admin login
     console.log('\n📝 Step 1: Testing admin login...');
-    const loginResponse = await fetch('http://localhost:4000/api/auth/login', {
+    const loginResponse = await fetch('https://maplorix.ae/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -31,7 +31,7 @@ const testApplicationSystem = async () => {
 
     // Step 2: Test GET /api/admin/applications
     console.log('\n📝 Step 2: Testing GET /api/admin/applications...');
-    const applicationsResponse = await fetch('http://localhost:4000/api/admin/applications?limit=10', {
+    const applicationsResponse = await fetch('https://maplorix.ae/api/admin/applications?limit=10', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -44,7 +44,7 @@ const testApplicationSystem = async () => {
 
     // Step 3: Test GET /api/admin/applications/stats
     console.log('\n📝 Step 3: Testing GET /api/admin/applications/stats...');
-    const statsResponse = await fetch('http://localhost:4000/api/admin/applications/stats', {
+    const statsResponse = await fetch('https://maplorix.ae/api/admin/applications/stats', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -57,7 +57,7 @@ const testApplicationSystem = async () => {
 
     // Step 4: Get a job to test application submission
     console.log('\n📝 Step 4: Getting a job for application test...');
-    const jobsResponse = await fetch('http://localhost:4000/api/jobs?limit=1');
+    const jobsResponse = await fetch('https://maplorix.ae/api/jobs?limit=1');
     const jobsResult = await jobsResponse.json();
     
     if (!jobsResult.success || !jobsResult.data.jobs.length) {
@@ -82,7 +82,7 @@ const testApplicationSystem = async () => {
     formData.append('coverLetter', 'I am very interested in this position as it aligns perfectly with my skills and experience. I have been working in software development for over 5 years and have extensive experience with the technologies mentioned in the job description. I believe I would be a great addition to your team and can contribute significantly to your projects.');
     formData.append('jobId', testJob._id);
 
-    const submitApplicationResponse = await fetch('http://localhost:4000/api/applications', {
+    const submitApplicationResponse = await fetch('https://maplorix.ae/api/applications', {
       method: 'POST',
       body: formData
       // No Content-Type header for FormData
@@ -94,7 +94,7 @@ const testApplicationSystem = async () => {
 
     // Step 6: Test admin applications again (should show the new application)
     console.log('\n📝 Step 6: Testing GET /api/admin/applications after submission...');
-    const updatedApplicationsResponse = await fetch('http://localhost:4000/api/admin/applications?limit=10', {
+    const updatedApplicationsResponse = await fetch('https://maplorix.ae/api/admin/applications?limit=10', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`

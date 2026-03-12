@@ -23,7 +23,7 @@ const createTestAdminJob = async () => {
     
     console.log('📝 Admin job data:', adminJobData);
     
-    const response = await axios.post('http://localhost:4000/api/jobs', adminJobData);
+    const response = await axios.post('https://maplorix.ae/api/jobs', adminJobData);
     
     console.log('✅ Admin job created successfully!');
     console.log('📋 Response status:', response.status);
