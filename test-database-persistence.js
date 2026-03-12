@@ -9,7 +9,8 @@ dotenv.config();
 import Job from './models/Job.js';
 import Application from './models/Application.js';
 
-const API_BASE_URL = 'http://localhost:4000/api';
+const API_BASE_URL = 'https://maplorix.ae/api';
+const DEFAULT_MONGO_URI = 'mongodb://127.0.0.1:27017/maplorix';
 
 const testDatabasePersistence = async () => {
   console.log("🧪 MongoDB Persistence Testing Tool");
@@ -18,9 +19,9 @@ const testDatabasePersistence = async () => {
   try {
     // Test 1: Database Connection
     console.log("1️⃣ Testing Database Connection");
-    console.log("📍 Connection URI:", process.env.MONGODB_URI);
+    console.log("📍 Connection URI:", process.env.MONGODB_URI || DEFAULT_MONGO_URI);
     
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGODB_URI || DEFAULT_MONGO_URI);
     console.log("✅ Connected to MongoDB");
     console.log("🗄️ Database Name:", mongoose.connection.name);
     console.log("🔗 Connection State:", mongoose.connection.readyState);
@@ -106,7 +107,7 @@ const testDatabasePersistence = async () => {
       
       const appResponse = await axios.post(`${API_BASE_URL}/applications`, applicationData);
       console.log("✅ Application submission successful");
-      console.log("🆔 Application ID:", appResponseResponse?.data?._id || 'No ID returned');
+      console.log("🆔 Application ID:", appResponse.data._id || 'No ID returned');
       
       // Verify application exists in database
       if (appResponse.data._id) {
@@ -131,7 +132,7 @@ const testDatabasePersistence = async () => {
     console.log("🔌 Database connection closed");
     
     // Reconnect
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGODB_URI || DEFAULT_MONGO_URI);
     console.log("🔌 Database connection reopened");
     console.log("🗄️ Database Name:", mongoose.connection.name);
     
