@@ -9,8 +9,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Load environment variables
-const nodeEnv = process.env.NODE_ENV || 'production';
+const nodeEnv = process.env.NODE_ENV || 'development';
 dotenv.config({ path: path.resolve(__dirname, `.env.${nodeEnv}`) });
+dotenv.config(); // Fallback to .env for shared vars
 
 // Import models for direct database testing
 import Job from './models/Job.js';
